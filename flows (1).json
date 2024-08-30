@@ -1,0 +1,2016 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Persistant Memory Prototype",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3cc11d24.ff01a2",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "WARNING: please check you have started this container with a volume that is mounted to /data\\n otherwise any flow changes are lost when you redeploy or upgrade the container\\n (e.g. upgrade to a more recent node-red docker image).\\n  If you are using named volumes you can ignore this warning.\\n Double click or see info side panel to learn how to start Node-RED in Docker to save your work",
+        "info": "\nTo start docker with a bind mount volume (-v option), for example:\n\n```\ndocker run -it -p 1880:1880 -v /home/user/node_red_data:/data --name mynodered nodered/node-red\n```\n\nwhere `/home/user/node_red_data` is a directory on your host machine where you want to store your flows.\n\nIf you do not do this then you can experiment and redploy flows, but if you restart or upgrade the container the flows will be disconnected and lost. \n\nThey will still exist in a hidden data volume, which can be recovered using standard docker techniques, but that is much more complex than just starting with a named volume as described above.",
+        "x": 7670,
+        "y": 7940,
+        "wires": []
+    },
+    {
+        "id": "1a1370e8a73102dd",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0.1",
+        "topic": "",
+        "x": 2210,
+        "y": 640,
+        "wires": [
+            [
+                "dfac18faeb6b933b"
+            ]
+        ]
+    },
+    {
+        "id": "3f1897018437f124",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "read2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2750,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "dfac18faeb6b933b",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/text.txt",
+        "filenameType": "str",
+        "format": "lines",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2350,
+        "y": 640,
+        "wires": [
+            [
+                "161129b13c36fcf7",
+                "46c55eb8e8a5ec83"
+            ]
+        ]
+    },
+    {
+        "id": "46c55eb8e8a5ec83",
+        "type": "file",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/text.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 2570,
+        "y": 640,
+        "wires": [
+            [
+                "11ecfa542ad50bcf",
+                "bf7098521ef84693"
+            ]
+        ],
+        "info": "hi"
+    },
+    {
+        "id": "11ecfa542ad50bcf",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/text.txt",
+        "filenameType": "str",
+        "format": "lines",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2750,
+        "y": 640,
+        "wires": [
+            [
+                "3f1897018437f124"
+            ]
+        ]
+    },
+    {
+        "id": "161129b13c36fcf7",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "read1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2350,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "bf7098521ef84693",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "write",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2550,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "8f8286c85abe9a29",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "0.1",
+        "topic": "",
+        "x": 2210,
+        "y": 540,
+        "wires": [
+            [
+                "ca800b37c2bb13d9"
+            ]
+        ]
+    },
+    {
+        "id": "ca800b37c2bb13d9",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2360,
+        "y": 540,
+        "wires": [
+            [
+                "2e1ac4d96ee0b5a9"
+            ]
+        ]
+    },
+    {
+        "id": "2e1ac4d96ee0b5a9",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "read",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2350,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "e0b47a2779a03b45",
+        "type": "file",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/text.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "delete",
+        "encoding": "none",
+        "x": 2370,
+        "y": 780,
+        "wires": [
+            [
+                "6d1d7e816bebb6c1",
+                "62756e1a64cdcac9"
+            ]
+        ]
+    },
+    {
+        "id": "6d1d7e816bebb6c1",
+        "type": "file",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/text.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 2570,
+        "y": 780,
+        "wires": [
+            [
+                "44acbc7d9fb29018",
+                "9d4b6e0de059afe4"
+            ]
+        ]
+    },
+    {
+        "id": "fca3275aab16ed5b",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "hi earth",
+        "payloadType": "str",
+        "x": 2210,
+        "y": 780,
+        "wires": [
+            [
+                "e0b47a2779a03b45"
+            ]
+        ]
+    },
+    {
+        "id": "44acbc7d9fb29018",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "write(create)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2570,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "62756e1a64cdcac9",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "delete",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2350,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "9d4b6e0de059afe4",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/text.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2750,
+        "y": 780,
+        "wires": [
+            [
+                "7625b69c6ef9aefd"
+            ]
+        ]
+    },
+    {
+        "id": "7625b69c6ef9aefd",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "read",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2750,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "d137ad28f2e5eba6",
+        "type": "file",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 2360,
+        "y": 920,
+        "wires": [
+            [
+                "516eebc49709f2b2",
+                "86e4d4766abf2896"
+            ]
+        ]
+    },
+    {
+        "id": "516eebc49709f2b2",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2360,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "1008bc380b09e81d",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "gdfxch",
+        "payloadType": "str",
+        "x": 2210,
+        "y": 920,
+        "wires": [
+            [
+                "d137ad28f2e5eba6"
+            ]
+        ]
+    },
+    {
+        "id": "86e4d4766abf2896",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2580,
+        "y": 920,
+        "wires": [
+            [
+                "006ec14073928930"
+            ]
+        ]
+    },
+    {
+        "id": "858497b943316ba5",
+        "type": "file",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 2980,
+        "y": 1700,
+        "wires": [
+            [
+                "8cefa8c844f087bc",
+                "2873d207d106b977"
+            ]
+        ]
+    },
+    {
+        "id": "8cefa8c844f087bc",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "write",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "006ec14073928930",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2560,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "d2f3cbd6a02e84b3",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "converting",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2630,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "021513304f648e24",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "creating data",
+        "func": "function getRandomInt(max) {\n  return Math.floor(Math.random() * max);\n}\nglobal.set(\"more\", { key: msg.payload - 1, list: [getRandomInt(10), getRandomInt(10), getRandomInt(10)] });\n\nvar list = global.get(\"more\").list\n\nlet moreData = global.get(\"more\")\nmsg.payload = moreData\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2450,
+        "y": 1700,
+        "wires": [
+            [
+                "1da0171d2eee5b07",
+                "f5bee6a370315333"
+            ]
+        ]
+    },
+    {
+        "id": "0d9d1e7eba40a2f6",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "creating data",
+        "func": "global.set(\"myGlobalData\", { key: \"value\", list: [1, 2, 3] });\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3170,
+        "y": 1160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dea769256c8e8b90",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 2970,
+        "y": 1160,
+        "wires": [
+            [
+                "0d9d1e7eba40a2f6"
+            ]
+        ]
+    },
+    {
+        "id": "6aa6901241b7229d",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2000,
+        "y": 1700,
+        "wires": [
+            [
+                "a6b30cc2fd90bc39"
+            ]
+        ]
+    },
+    {
+        "id": "f5bee6a370315333",
+        "type": "csv",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "key,list",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 2630,
+        "y": 1700,
+        "wires": [
+            [
+                "d2f3cbd6a02e84b3",
+                "0a2395b799f8497b"
+            ]
+        ]
+    },
+    {
+        "id": "0a2395b799f8497b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "clean",
+        "func": "// Split the payload into an array of lines\nlet lines = msg.payload.split('\\n');\n\n// Filter out empty lines\nlines = lines.filter(line => line.trim() !== '');\n\n// Join the lines back together\nmsg.payload = lines.join('\\n');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2790,
+        "y": 1700,
+        "wires": [
+            [
+                "66fe4ffc715f7a33",
+                "858497b943316ba5"
+            ]
+        ]
+    },
+    {
+        "id": "66fe4ffc715f7a33",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "clean",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2810,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "f7c3a9f9b12cf7ac",
+        "type": "trigger",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 2720,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a178dda61504b652",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 2310,
+        "y": 1200,
+        "wires": [
+            [
+                "3881f3c5949c2c15"
+            ]
+        ]
+    },
+    {
+        "id": "83871ecb26de9ae6",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "num",
+        "x": 2310,
+        "y": 1280,
+        "wires": [
+            [
+                "73325d7f5b252b86"
+            ]
+        ]
+    },
+    {
+        "id": "2f92a1fd56b78ff5",
+        "type": "trigger",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 2680,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3881f3c5949c2c15",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 1",
+        "func": "var cycles = 0 \nmsg.payload = cycles\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2520,
+        "y": 1200,
+        "wires": [
+            [
+                "f7c3a9f9b12cf7ac",
+                "239dcbb176ba6739"
+            ]
+        ]
+    },
+    {
+        "id": "239dcbb176ba6739",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2540,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "73325d7f5b252b86",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 2",
+        "func": "var cycles = 0 \nmsg.payload = cycles\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2480,
+        "y": 1280,
+        "wires": [
+            [
+                "8e7dbc53536fdbaa",
+                "2f92a1fd56b78ff5"
+            ]
+        ]
+    },
+    {
+        "id": "8e7dbc53536fdbaa",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2500,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "86966ac17504447e",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 3",
+        "func": "var x = 0;\nif (x > 10){\n    msg.payload = 0\n}\nelse{\n    x = x + 1\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3160,
+        "y": 1280,
+        "wires": [
+            [
+                "57b3c96c265c1893",
+                "61780d67ba997082"
+            ]
+        ]
+    },
+    {
+        "id": "2ca25cc3d3ab6a0a",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 4",
+        "func": "if (msg.payload > 10){\n    msg.payload = 0\n}\nelse{\n    msg.payload = msg.payload + 1\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3660,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "57b3c96c265c1893",
+        "type": "trigger",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "0",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 3340,
+        "y": 1280,
+        "wires": [
+            [
+                "86966ac17504447e",
+                "69957516b61ae527"
+            ]
+        ]
+    },
+    {
+        "id": "2db5e07fba73434a",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 2970,
+        "y": 1280,
+        "wires": [
+            [
+                "86966ac17504447e"
+            ]
+        ]
+    },
+    {
+        "id": "61780d67ba997082",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "function",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3540,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "69957516b61ae527",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "trigger",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3530,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "b48c01da4a9a0391",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 3380,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "082481ecfb220729",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "end loop",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2360,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "bcfb90e1d6e188da",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Adding to a csv file",
+        "info": "Adding to a csv file",
+        "x": 2050,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "5a502b01531ebb79",
+        "type": "loop",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "kind": "enum",
+        "count": "",
+        "initial": "1",
+        "step": "1",
+        "condition": "",
+        "conditionType": "js",
+        "when": "before",
+        "enumeration": "enum",
+        "enumerationType": "msg",
+        "limit": "",
+        "loopPayload": "loop-index",
+        "finalPayload": "final-last",
+        "x": 2470,
+        "y": 2420,
+        "wires": [
+            [
+                "53879a25df5f5bcf"
+            ],
+            [
+                "799523d0277e4ada",
+                "6dd4b13a071a8d05"
+            ]
+        ]
+    },
+    {
+        "id": "1cf757a1769992c5",
+        "type": "csv",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": false,
+        "hdrout": "once",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "key,list",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 2270,
+        "y": 2380,
+        "wires": [
+            [
+                "79e2f5a5f8d218d9",
+                "a364353091020cbb"
+            ]
+        ]
+    },
+    {
+        "id": "f6ec945f54474cad",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2300,
+        "y": 2340,
+        "wires": [
+            [
+                "1cf757a1769992c5"
+            ]
+        ]
+    },
+    {
+        "id": "1c045eb25395cbe1",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "index",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "target",
+                "v": "20",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 2130,
+        "y": 2340,
+        "wires": [
+            [
+                "f6ec945f54474cad"
+            ]
+        ]
+    },
+    {
+        "id": "53879a25df5f5bcf",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "end",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2690,
+        "y": 2300,
+        "wires": [
+            [
+                "f0c6a9fe74d9ba1b"
+            ]
+        ]
+    },
+    {
+        "id": "6dd4b13a071a8d05",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "target",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 2690,
+        "y": 2420,
+        "wires": [
+            [
+                "53879a25df5f5bcf"
+            ],
+            [
+                "762eb259c692bba8",
+                "5a502b01531ebb79"
+            ]
+        ]
+    },
+    {
+        "id": "799523d0277e4ada",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "looping",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2700,
+        "y": 2500,
+        "wires": []
+    },
+    {
+        "id": "79e2f5a5f8d218d9",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "counter",
+        "func": "msg.enum = msg.payload\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2280,
+        "y": 2420,
+        "wires": [
+            [
+                "5a502b01531ebb79"
+            ]
+        ]
+    },
+    {
+        "id": "762eb259c692bba8",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2860,
+        "y": 2420,
+        "wires": []
+    },
+    {
+        "id": "f0c6a9fe74d9ba1b",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "end",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2850,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "a364353091020cbb",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2460,
+        "y": 2380,
+        "wires": []
+    },
+    {
+        "id": "1da0171d2eee5b07",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "creating data ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2570,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "2873d207d106b977",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": true,
+        "x": 3180,
+        "y": 1700,
+        "wires": [
+            [
+                "b638549492b7f542",
+                "a6b30cc2fd90bc39"
+            ]
+        ]
+    },
+    {
+        "id": "b638549492b7f542",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "read",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3150,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "a6b30cc2fd90bc39",
+        "type": "loop",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "kind": "fcnt",
+        "count": "5",
+        "initial": "1",
+        "step": "1",
+        "condition": "var x = 0 while(x< 10){     x += 1 };",
+        "conditionType": "js",
+        "when": "before",
+        "enumeration": "enum",
+        "enumerationType": "msg",
+        "limit": "",
+        "loopPayload": "loop-val",
+        "finalPayload": "final-count",
+        "x": 2230,
+        "y": 1700,
+        "wires": [
+            [
+                "082481ecfb220729"
+            ],
+            [
+                "021513304f648e24"
+            ]
+        ]
+    },
+    {
+        "id": "a88ed1a02505b923",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "filter/finder",
+        "info": "",
+        "x": 2120,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "6b940d2a275b1e35",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "write",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2970,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "d9815f9bb2ea0fe8",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "converting",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3310,
+        "y": 2260,
+        "wires": []
+    },
+    {
+        "id": "a8befe8e4636a099",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2080,
+        "y": 2080,
+        "wires": [
+            [
+                "18c17161e257f598"
+            ]
+        ]
+    },
+    {
+        "id": "b98008a6b4d4e36c",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "clean",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3310,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "742809c797e26797",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "end loop",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2300,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "9a41177850f7a6d0",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Deleting from a csv file",
+        "info": "Adding to a csv file",
+        "x": 2000,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "4230872540b2a44b",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "read",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3390,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "6faa09815070e70d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "read",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2650,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "18c17161e257f598",
+        "type": "loop",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "kind": "enum",
+        "count": "10",
+        "initial": "1",
+        "step": "1",
+        "condition": "var x = 0 while(x< 10){     x += 1 };",
+        "conditionType": "js",
+        "when": "before",
+        "enumeration": "enum",
+        "enumerationType": "msg",
+        "limit": "",
+        "loopPayload": "loop-val",
+        "finalPayload": "final-last",
+        "x": 2270,
+        "y": 2080,
+        "wires": [
+            [
+                "742809c797e26797",
+                "b29742d8f5cdc22d"
+            ],
+            [
+                "c408c9bc092a568d"
+            ]
+        ]
+    },
+    {
+        "id": "0d61c421620d7f5c",
+        "type": "file",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/temp.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 2820,
+        "y": 2080,
+        "wires": [
+            [
+                "7b45582999b59618",
+                "6b940d2a275b1e35"
+            ]
+        ]
+    },
+    {
+        "id": "b29742d8f5cdc22d",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/temp.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2580,
+        "y": 1880,
+        "wires": [
+            [
+                "f0d16d754dfe63a4"
+            ]
+        ]
+    },
+    {
+        "id": "f0d16d754dfe63a4",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2780,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "c408c9bc092a568d",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": true,
+        "x": 2500,
+        "y": 2080,
+        "wires": [
+            [
+                "6faa09815070e70d",
+                "ca7bc0db9732ec61"
+            ]
+        ]
+    },
+    {
+        "id": "7b45582999b59618",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/temp.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 3020,
+        "y": 2080,
+        "wires": [
+            [
+                "4230872540b2a44b"
+            ]
+        ]
+    },
+    {
+        "id": "ca7bc0db9732ec61",
+        "type": "csv",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 2670,
+        "y": 2080,
+        "wires": [
+            [
+                "0d61c421620d7f5c"
+            ]
+        ]
+    },
+    {
+        "id": "c96d4e57e3bb4079",
+        "type": "loop",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "kind": "enum",
+        "count": "",
+        "initial": "1",
+        "step": "1",
+        "condition": "",
+        "conditionType": "js",
+        "when": "before",
+        "enumeration": "enum",
+        "enumerationType": "msg",
+        "limit": "",
+        "loopPayload": "loop-index",
+        "finalPayload": "final-last",
+        "x": 2490,
+        "y": 2760,
+        "wires": [
+            [
+                "e2500a22df8e3362"
+            ],
+            [
+                "aedcd9aedc58e8a2",
+                "f263ff804237468c"
+            ]
+        ]
+    },
+    {
+        "id": "ead61166bd036075",
+        "type": "csv",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": false,
+        "hdrout": "once",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "key,list",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 2290,
+        "y": 2740,
+        "wires": [
+            [
+                "479390df0a67fb65"
+            ]
+        ]
+    },
+    {
+        "id": "b6c4073c771021bb",
+        "type": "file in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 2320,
+        "y": 2700,
+        "wires": [
+            [
+                "ead61166bd036075"
+            ]
+        ]
+    },
+    {
+        "id": "719462afa77e48ae",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "index",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "target",
+                "v": "10",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 2110,
+        "y": 2780,
+        "wires": [
+            [
+                "b6c4073c771021bb"
+            ]
+        ]
+    },
+    {
+        "id": "e2500a22df8e3362",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 7",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2720,
+        "y": 2660,
+        "wires": [
+            [
+                "70c3d9563a9efba6"
+            ]
+        ]
+    },
+    {
+        "id": "70c3d9563a9efba6",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2860,
+        "y": 2660,
+        "wires": []
+    },
+    {
+        "id": "f263ff804237468c",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "target",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2750,
+        "y": 2780,
+        "wires": [
+            [
+                "e2500a22df8e3362",
+                "b543ba9b502365f8"
+            ],
+            [
+                "85c96b1fc83c3099",
+                "479390df0a67fb65"
+            ]
+        ]
+    },
+    {
+        "id": "aedcd9aedc58e8a2",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2720,
+        "y": 2860,
+        "wires": []
+    },
+    {
+        "id": "479390df0a67fb65",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 8",
+        "func": "msg.enum = msg.payload\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2300,
+        "y": 2780,
+        "wires": [
+            [
+                "c96d4e57e3bb4079"
+            ]
+        ]
+    },
+    {
+        "id": "85c96b1fc83c3099",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3000,
+        "y": 2800,
+        "wires": []
+    },
+    {
+        "id": "b543ba9b502365f8",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3040,
+        "y": 2740,
+        "wires": []
+    },
+    {
+        "id": "f92cead71c092e81",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3040,
+        "y": 2900,
+        "wires": []
+    },
+    {
+        "id": "7a63d05b1c87ab28",
+        "type": "http in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "url": "/index",
+        "method": "get",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 2200,
+        "y": 2980,
+        "wires": [
+            [
+                "4162b5e495b497e5"
+            ]
+        ]
+    },
+    {
+        "id": "0669b2c58f7e8b8f",
+        "type": "http response",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 2730,
+        "y": 2980,
+        "wires": []
+    },
+    {
+        "id": "4162b5e495b497e5",
+        "type": "template",
+        "z": "f6f2187d.f17ca8",
+        "name": "css",
+        "field": "css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": "html {\n    background-color: #151e2f;\n}\n\nbody,\nhtml {\n    color: #f1c40f;\n    height: 90%;\n    padding-bottom: 50px;\n    margin: 0px;\n}\n\n.montserrat-font {\n    font-family: \"Montserrat\", sans-serif;\n    font-optical-sizing: auto;\n    font-weight: 600;\n    font-style: normal;\n}\n\n.flex-container {\n    display: flex;\n    height: 100%;\n    align-items: center;\n    justify-content: center;\n}\n\n.title {\n    padding-top: 10px;\n    font-family: \"Montserrat\", sans-serif;\n    ;\n    font-size: 60px;\n}\n\n\n\n.form {\n    width: 500px;\n    padding: 40px;\n    border-width: 5px;\n    border-style: solid;\n    border-color: #151e2f;\n    border-radius: 20px;\n}\n\n.input_cont {\n    display: flex;\n    justify-content: space-between;\n    padding: 20px;\n    padding-right: 35px;\n}\n\ninput {\n    padding: 12.5px;\n    width: 200px;\n    border-radius: 20px;\n    font-size: 30px;\n    border-width: 0px;\n}\n\nbutton {\n    color: azure;\n    padding-left: 30px;\n    padding-right: 30px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    font-size: 30px;\n    border: solid;\n    border-color: #f1c40f;\n    background-color: #1a253a;\n    transition-duration: 0.4s;\n}\n\nbutton:hover {\n    background-color: #f1c40f;\n    color: black;\n}",
+        "output": "str",
+        "x": 2390,
+        "y": 2980,
+        "wires": [
+            [
+                "55f86dd2c611308b"
+            ]
+        ]
+    },
+    {
+        "id": "55f86dd2c611308b",
+        "type": "template",
+        "z": "f6f2187d.f17ca8",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<style>\n        {{{css}}}\n</style>\n<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n        <title>1</title>\n        <link rel=\"stylesheet\" href=\"style.css\">\n        <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n        <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n        <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap\" rel=\"stylesheet\">\n    \n    </head>\n    <body>\n        <div class = \"flex-container\">\n            <div class = \"form\">\n                <a class = \"title\">Enter a Number</a>\n                <br>\n                <form id=\"form1\">\n                    <div class=\"input_cont\">\n                        <input type=\"number\" id=\"numberInput1\" name=\"number\" required>\n                        <button type=\"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"response1\"></p>\n            </div>\n            <div class = \"form\">\n                <a class = \"title\">Find a Value</a>\n                <br>\n                <form id=\"form2\">\n                    <div class=\"input_cont\">\n                        <input type=\"number\" id=\"numberInput2\" name=\"number\" required>\n                        <button type=\"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"response2\"></p>\n            </div>\n            <div class = \"form\">\n                <a class = \"title\">Delete a Value</a>\n                <br>\n                <form id=\"form3\">\n                    <div class=\"input_cont\">\n                        <input type=\"number\" id=\"numberInput3\" name=\"number\" required>\n                        <button type=\"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"response3\"></p>\n            </div>\n        </div>\n    \n    <script>\n        document.getElementById('form1').addEventListener('submit', function(event) {\n            event.preventDefault();\n            let number = document.getElementById('numberInput1').value;\n\n            fetch('/submit', {\n                method: 'POST',\n                headers: {\n                    'Content-Type': 'application/json'\n                },\n                body: JSON.stringify({ number: number })\n            })\n            .then(response => response.text())\n            .then(data => {\n                document.getElementById('response1').textContent = data;\n            })\n            .catch(error => console.error('Error:', error));\n        });\n\n        document.getElementById('form2').addEventListener('submit', function(event) {\n            event.preventDefault();\n            let number = document.getElementById('numberInput2').value;\n\n            fetch('/submit', {\n                method: 'POST',\n                headers: {\n                    'Content-Type': 'application/json'\n                },\n                body: JSON.stringify({ number: number })\n            })\n            .then(response => response.text())\n            .then(data => {\n                document.getElementById('response2').textContent = data;\n            })\n            .catch(error => console.error('Error:', error));\n        });\n\n        document.getElementById('form3').addEventListener('submit', function(event) {\n            event.preventDefault();\n            let number = document.getElementById('numberInput3').value;\n\n            fetch('/submit', {\n                method: 'POST',\n                headers: {\n                    'Content-Type': 'application/json'\n                },\n                body: JSON.stringify({ number: number })\n            })\n            .then(response => response.text())\n            .then(data => {\n                document.getElementById('response3').textContent = data;\n            })\n            .catch(error => console.error('Error:', error));\n        });\n    </script>\n    </body>\n</html>",
+        "output": "str",
+        "x": 2550,
+        "y": 2980,
+        "wires": [
+            [
+                "0669b2c58f7e8b8f"
+            ]
+        ]
+    },
+    {
+        "id": "c03a0bc6ee114987",
+        "type": "http in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "url": "/submit",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 2210,
+        "y": 3120,
+        "wires": [
+            [
+                "f9484008a731c089"
+            ]
+        ]
+    },
+    {
+        "id": "f9484008a731c089",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 9",
+        "func": "let number = msg.payload.number; // Assuming the number is sent as JSON\nmsg.payload = `You entered the number: ${number}`;\nnode.warn(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2400,
+        "y": 3120,
+        "wires": [
+            [
+                "2e2d4abfce9ecfaa"
+            ]
+        ]
+    },
+    {
+        "id": "2e2d4abfce9ecfaa",
+        "type": "http response",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 2750,
+        "y": 3120,
+        "wires": []
+    },
+    {
+        "id": "05bb669005aefe93",
+        "type": "http response",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 2670,
+        "y": 3220,
+        "wires": []
+    },
+    {
+        "id": "b3619cd8142bc8f3",
+        "type": "template",
+        "z": "f6f2187d.f17ca8",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n        <title>2</title>\n        <link rel=\"stylesheet\" href=\"style.css\">\n        <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n        <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n        <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap\" rel=\"stylesheet\">\n    </head>\n    <body>\n        <div class = \"flex-container\">\n            <div class = \"form\">\n                <a class = \"title\">Enter a Number</a>\n                <br>\n                <form id=\"form\">\n                    <div class=\"input_cont\">\n                        <input type=\"number\" id=\"numberInput\" name=\"number\" required>\n                        <button type=\"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"response\"></p>\n            </div>\n            <div class = \"form\">\n                <a class = \"title\">Find a Value</a>\n                <br>\n                <form id=\"form\">\n                    <div class=\"input_cont\">\n                        <input type=\"number\" id=\"numberInput\" name=\"number\" required>\n                        <button type=\"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"response\"></p>\n            </div>\n            <div class = \"form\">\n                <a class = \"title\">Delete a Value</a>\n                <br>\n                <form id=\"form\">\n                    <div class=\"input_cont\">\n                        <input type=\"number\" id=\"numberInput\" name=\"number\" required>\n                        <button type=\"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"response\"></p>\n            </div>\n        </div>\n    <style>\n        html{\n    background-color: #151e2f;\n}\nbody,html{\n    color: #f1c40f;\n    height: 90%;\n    padding-bottom: 50px;\n    margin: 0px;            \n}\n.montserrat-font{\n    font-family: \"Montserrat\", sans-serif;\n    font-optical-sizing: auto;\n    font-weight: 600;\n    font-style: normal;\n}\n.flex-container {\n    display: flex;\n    height: 100%;\n    align-items: center;\n    justify-content: center;\n}\n.title{\n    padding-top: 10px;\n    font-family:  \"Montserrat\", sans-serif;;\n    font-size: 60px;\n}\n\n\n\n.form{\n    width: 500px;\n    padding:40px;\n    border-width:5px;\n    border-style:solid;\n    border-color: #151e2f;\n    border-radius: 20px;\n}\n\n.input_cont{\n    display: flex;\n    justify-content: space-between;\n    padding: 20px;\n    padding-right: 35px;\n}\n\ninput{\n    padding: 12.5px;\n    width:200px;\n    border-radius: 20px;\n    font-size: 30px;\n    border-width: 0px;\n}\nbutton{\n    color: azure;\n    padding-left: 30px;\n    padding-right: 30px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    font-size: 30px;\n    border: solid;\n    border-color: #f1c40f;\n    background-color: #1a253a;\n    transition-duration: 0.4s;\n}\nbutton:hover{\n    background-color: #f1c40f;\n    color:black;\n}\n    </style>\n    <script>\n        document.getElementById('form').addEventListener('submit', function(event) {\n            event.preventDefault();\n            let number = document.getElementById('numberInput').value;\n\n            fetch('/submit', {\n                method: 'POST',\n                headers: {\n                    'Content-Type': 'application/json'\n                },\n                body: JSON.stringify({ number: number })\n            })\n            .then(response => response.text())\n            .then(data => {\n                document.getElementById('response').textContent = data;\n            })\n            .catch(error => console.error('Error:', error));\n        });\n    </script>\n    </body>\n</html>",
+        "output": "str",
+        "x": 2490,
+        "y": 3220,
+        "wires": [
+            [
+                "05bb669005aefe93"
+            ]
+        ]
+    },
+    {
+        "id": "a2f528348edd3406",
+        "type": "http in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "url": "/index2",
+        "method": "get",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 2250,
+        "y": 3220,
+        "wires": [
+            [
+                "b3619cd8142bc8f3"
+            ]
+        ]
+    }
+]
