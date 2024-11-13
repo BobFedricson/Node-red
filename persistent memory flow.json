@@ -1,0 +1,510 @@
+[
+    {
+        "id": "ec324cfb9c6b85fc",
+        "type": "tab",
+        "label": "Website",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f6032567687716d4",
+        "type": "comment",
+        "z": "ec324cfb9c6b85fc",
+        "name": "WARNING: please check you have started this container with a volume that is mounted to /data\\n otherwise any flow changes are lost when you redeploy or upgrade the container\\n (e.g. upgrade to a more recent node-red docker image).\\n  If you are using named volumes you can ignore this warning.\\n Double click or see info side panel to learn how to start Node-RED in Docker to save your work",
+        "info": "\nTo start docker with a bind mount volume (-v option), for example:\n\n```\ndocker run -it -p 1880:1880 -v /home/user/node_red_data:/data --name mynodered nodered/node-red\n```\n\nwhere `/home/user/node_red_data` is a directory on your host machine where you want to store your flows.\n\nIf you do not do this then you can experiment and redploy flows, but if you restart or upgrade the container the flows will be disconnected and lost. \n\nThey will still exist in a hidden data volume, which can be recovered using standard docker techniques, but that is much more complex than just starting with a named volume as described above.",
+        "x": 7430,
+        "y": 7740,
+        "wires": []
+    },
+    {
+        "id": "2683d175ef87d37f",
+        "type": "template",
+        "z": "ec324cfb9c6b85fc",
+        "name": "html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<style>\n        {{{css}}}\n</style>\n<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n        <title>Form Input</title>\n        <link rel=\"stylesheet\" href=\"style.css\">\n        <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n        <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n        <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap\" rel=\"stylesheet\">\n    \n    </head>\n    <body>\n        <div class = \"flex-container\">\n            <div class = \"form\">\n                <a class = \"title\">Find by Index</a>\n                <br>\n                <form id=\"form1\">\n                    <div class=\"input_cont\">\n                        <input type=\"number\" placeholder=\"Index\" id=\"numberInput\" name=\"number\" required>\n                        <button type=\"submit\" id = \"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"index_resp\"></p>\n            </div>\n            <div class = \"form\">\n                <a class = \"title\">Find by Date</a>\n                <br>\n                <form id=\"form2\">\n                    <div class=\"input_cont\">\n                        <input type=\"date\" id=\"dateInput\" name=\"number\" required>\n                        <button type=\"submit\" id = \"submit\">Submit</button>\n                    </div>\n                </form>\n                <p id=\"date_resp\"></p>\n            </div>\n            <div class = \"fom\">\n                <a class = \"title\">Output</a>\n                <br>\n                <div id = \"output\">\n                    <p id=\"output_resp\"></p>\n                </div>\n            </div>\n        </div>\n        \n    <script>\n        document.getElementById('form1').addEventListener('submit', function(event) {\n            event.preventDefault();\n            let input = document.getElementById('numberInput').value;\n\n            fetch('/submit', {\n                method: 'POST',\n                headers: {\n                    'Content-Type': 'application/json'\n                },\n                body: JSON.stringify({ input: Number(input), type: \"index\"})\n            })\n            .then(response => response.text())\n            .then(data => {\n                data = JSON.parse(data)\n                document.getElementById('index_resp').textContent = data[0];\n                document.getElementById('output_resp').textContent = data[1];\n            })\n            .catch(error => console.error('Error:', error));\n\n            document.getElementById('date_resp').style.display = 'block';\n            document.getElementById('date_resp').style.color = '#f1c40f';\n            \n            setTimeout(() => {\n                document.getElementById('index_resp').style.color = '#151e2f';\n            }, 2000);\n            setTimeout(() => {\n                document.getElementById('index_resp').style.display = 'none';\n            }, 3000);\n\n        });\n\n        document.getElementById('form2').addEventListener('submit', function(event) {\n            event.preventDefault();\n            let input = document.getElementById('dateInput').value;\n            \n            fetch('/submit', {\n                method: 'POST',\n                headers: {\n                    'Content-Type': 'application/json'\n                },\n                body: JSON.stringify({ input: input, type: \"date\"})\n            })\n            .then(response => response.text())\n            .then(data => {\n                data = JSON.parse(data)\n                console.log(data[0])\n                let output = \"\"\n                for (let item of data[1]) {\n                    output += item + '<br>'; \n                }\n                document.getElementById('date_resp').textContent = data[0];\n                document.getElementById('output_resp').innerHTML = output;\n            })\n            .catch(error => console.error('Error:', error));\n\n            document.getElementById('date_resp').style.display = 'block';\n            document.getElementById('date_resp').style.color = '#f1c40f';\n            \n            setTimeout(() => {\n                document.getElementById('date_resp').style.color = '#151e2f';\n            }, 2000);\n            setTimeout(() => {\n                document.getElementById('date_resp').style.display = 'none';\n            }, 3000);\n        });\n    </script>\n    </body>\n</html>",
+        "output": "str",
+        "x": 830,
+        "y": 740,
+        "wires": [
+            [
+                "a2ca6a10956f62e1"
+            ]
+        ]
+    },
+    {
+        "id": "79a58e02912aa285",
+        "type": "http in",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "url": "/index",
+        "method": "get",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 480,
+        "y": 740,
+        "wires": [
+            [
+                "92ac7b42993c54af"
+            ]
+        ]
+    },
+    {
+        "id": "a2ca6a10956f62e1",
+        "type": "http response",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "92ac7b42993c54af",
+        "type": "template",
+        "z": "ec324cfb9c6b85fc",
+        "name": "css",
+        "field": "css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": "html {\n    background-color: #151e2f;\n}\n\nbody,\nhtml {\n    color: #f6b02f;\n    height: 90%;\n    padding-bottom: 50px;\n    margin: 0px;\n}\n\n.montserrat-font {\n    font-family: \"Montserrat\", sans-serif;\n    font-optical-sizing: auto;\n    font-weight: 600;\n    font-style: normal;\n}\n\n.flex-container {\n    display: flex;\n    flex-wrap: wrap;\n    height: 100%;\n    width:100%;\n    align-items: center;\n    justify-content: center;\n}\n\n.title {\n    font-family: \"Montserrat\", sans-serif;\n    font-size: 60px;\n}\n\n\n\n.form {\n    width: 500px;\n    padding: 40px;\n    border-width: 5px;\n    border-style: solid;\n    border-color: #151e2f;\n    border-radius: 20px;\n    padding-bottom: 0px;\n    padding-top: 20px;\n}\n\n.input_cont {\n    display: flex;\n    justify-content: space-between;\n    padding: 20px;\n    padding-right: 35px;\n}\n\ninput {\n    padding: 12.5px;\n    width: 200px;\n    border-radius: 20px;\n    font-size: 25px;\n    border-width: 0px;\n}\n\nbutton {\n    color: azure;\n    padding-left: 30px;\n    padding-right: 30px;\n    padding-top: 15px;\n    padding-bottom: 15px;\n    font-size: 30px;\n    border: solid;\n    border-color: #f6b02f;\n    background-color: #1a253a;\n    transition-duration: 0.4s;\n}\n\nbutton:hover {\n    background-color: #f6b02f;\n    color: black;\n}\np{\n    margin-left: 30px;\n    font-family: \"Montserrat\",sans-serif;\n    color: #f6b02f;\n    transition: color 2s ease;\n}\n#output{\n    background-color: #1a253a;\n    border: 3px solid #f6b02f;\n    border-radius: 0;\n    margin-top: 15px;\n    height:210px;\n    width: 600px;\n    overflow: auto; \n}",
+        "output": "str",
+        "x": 650,
+        "y": 740,
+        "wires": [
+            [
+                "2683d175ef87d37f"
+            ]
+        ]
+    },
+    {
+        "id": "1208492bee702bf9",
+        "type": "http in",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "url": "/submit",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 490,
+        "y": 840,
+        "wires": [
+            [
+                "519f58574726482f"
+            ]
+        ]
+    },
+    {
+        "id": "519f58574726482f",
+        "type": "function",
+        "z": "ec324cfb9c6b85fc",
+        "name": "input processing",
+        "func": "let input = msg.payload.input;\nglobal.set(\"input_type\", msg.payload.type)\nglobal.set(\"input\", input)\n\nreturn msg",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 840,
+        "wires": [
+            [
+                "459a41a135aaab7a"
+            ]
+        ]
+    },
+    {
+        "id": "03fe73ee2af1008d",
+        "type": "http response",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "226fedd2e292cb13",
+        "type": "inject",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "time",
+                "v": "iso",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 500,
+        "y": 1140,
+        "wires": [
+            [
+                "c56ffb927a26ea45",
+                "15fe6336aa0d395c"
+            ]
+        ]
+    },
+    {
+        "id": "0a4e0ff82f1df367",
+        "type": "csv",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": false,
+        "hdrout": "once",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "key,time,list",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 1070,
+        "y": 1140,
+        "wires": [
+            [
+                "a4a22a4119068a41"
+            ]
+        ]
+    },
+    {
+        "id": "c56ffb927a26ea45",
+        "type": "file in",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 900,
+        "y": 1140,
+        "wires": [
+            [
+                "0a4e0ff82f1df367"
+            ]
+        ]
+    },
+    {
+        "id": "a4a22a4119068a41",
+        "type": "function",
+        "z": "ec324cfb9c6b85fc",
+        "name": "append to file",
+        "func": "let array = msg.payload\nlet data = [] // Data to be stored\nlet date = msg.time.slice(0, 10)\nlet time = msg.time.slice(11, 19)\nlet date_time = [date,time]\n\nvar array_len = array.length;\n\nif (array_len > 0) {\n  var latest = array[array.length - 1].key;\n  node.warn(\"hi, no problems here\")\n}\nelse {\n  array_len = -1;\n  latest = array_len\n  node.warn(array_len)\n  node.warn(\"no values but still it works\")\n}\n\nmsg.payload = latest\n\nglobal.set(\"more\", { key: msg.payload+1,time: date_time, list: data });\n\nmsg.payload = global.get(\"more\");\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 1140,
+        "wires": [
+            [
+                "1aa70d35daf21d01"
+            ]
+        ]
+    },
+    {
+        "id": "1c26e7047e427d76",
+        "type": "file",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 900,
+        "y": 1220,
+        "wires": [
+            [
+                "2946096463240197"
+            ]
+        ]
+    },
+    {
+        "id": "1aa70d35daf21d01",
+        "type": "csv",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "key,time,list",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 1070,
+        "y": 1180,
+        "wires": [
+            [
+                "a439657cf49755f6"
+            ]
+        ]
+    },
+    {
+        "id": "a439657cf49755f6",
+        "type": "function",
+        "z": "ec324cfb9c6b85fc",
+        "name": "clean data",
+        "func": "// Split the payload into an array of lines\nlet lines = msg.payload.split('\\n');\n\n// Filter out empty lines\nlines = lines.filter(line => line.trim() !== '');\n\n// Join the lines back together\nmsg.payload = lines.join('\\n');\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 1180,
+        "wires": [
+            [
+                "1c26e7047e427d76"
+            ]
+        ]
+    },
+    {
+        "id": "2946096463240197",
+        "type": "file in",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": true,
+        "x": 900,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8aa35ff87e1ff4b2",
+        "type": "comment",
+        "z": "ec324cfb9c6b85fc",
+        "name": "append to file",
+        "info": "This is to append to a pre-existing file",
+        "x": 310,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "88f6b9e7e653229f",
+        "type": "function",
+        "z": "ec324cfb9c6b85fc",
+        "name": "response",
+        "func": "const response = [global.get(\"status\"),global.get(\"output\")]\nmsg.payload = response\nnode.warn(response)\n\nreturn msg",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 920,
+        "wires": [
+            [
+                "03fe73ee2af1008d"
+            ]
+        ]
+    },
+    {
+        "id": "459a41a135aaab7a",
+        "type": "file in",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 840,
+        "y": 840,
+        "wires": [
+            [
+                "092e983e717e8253"
+            ]
+        ]
+    },
+    {
+        "id": "092e983e717e8253",
+        "type": "csv",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": false,
+        "hdrout": "once",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "key,time,list",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 990,
+        "y": 840,
+        "wires": [
+            [
+                "a7af4a64484e4d4a"
+            ]
+        ]
+    },
+    {
+        "id": "a7af4a64484e4d4a",
+        "type": "function",
+        "z": "ec324cfb9c6b85fc",
+        "name": "finding",
+        "func": "let data = msg.payload\nlet input_type = global.get(\"input_type\")\nlet input = global.get(\"input\")\nvar status = \"Submitted\"\nlet output = \"\"\nif (input_type == \"index\"){\n    if(input<data.length-1){\n        output = Object.values(data[input])\n    }\n    else{\n        status = \"Input out of index range\"\n        output = \"Input out of index range\"\n    }\n    \n}\n\nelse if(input_type == \"date\"){\n    const found = []\n    for(let items of data){\n        let time = items.time\n        time = JSON.parse(time)\n        time = time[0]\n        if(time.startsWith(input)){\n            var list_item = Object.values(items)\n            found.push(list_item)\n        }\n    }\n    if(found.length > 0){\n        node.warn(found);\n    }\n    else{\n        status = \"Item not found\"\n        output = \"Item not found\"\n    }\n    output = found\n}\nelse{\n    node.warn(\"error\")\n    status = \"Input not recognised\"\n}\nglobal.set(\"status\",status)\nglobal.set(\"output\",output)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 920,
+        "wires": [
+            [
+                "88f6b9e7e653229f"
+            ]
+        ]
+    },
+    {
+        "id": "a70ef244b9fdb91a",
+        "type": "comment",
+        "z": "ec324cfb9c6b85fc",
+        "name": "creates website",
+        "info": "",
+        "x": 320,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "449c36624d9d14cf",
+        "type": "comment",
+        "z": "ec324cfb9c6b85fc",
+        "name": "website input",
+        "info": "",
+        "x": 310,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "4ba44568ab5c434f",
+        "type": "file",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "filename": "/data/sheet.csv",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 680,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cdd45f4c84b93eeb",
+        "type": "inject",
+        "z": "ec324cfb9c6b85fc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 490,
+        "y": 1020,
+        "wires": [
+            [
+                "4ba44568ab5c434f",
+                "a467980620fdb152"
+            ]
+        ]
+    },
+    {
+        "id": "a467980620fdb152",
+        "type": "debug",
+        "z": "ec324cfb9c6b85fc",
+        "name": "create new file",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "15fe6336aa0d395c",
+        "type": "debug",
+        "z": "ec324cfb9c6b85fc",
+        "name": "append to file",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "6e96b8774d877950",
+        "type": "comment",
+        "z": "ec324cfb9c6b85fc",
+        "name": "create new file",
+        "info": "This is to create a new file",
+        "x": 310,
+        "y": 1020,
+        "wires": []
+    }
+]
